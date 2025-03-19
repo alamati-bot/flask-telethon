@@ -13,6 +13,10 @@ channel_username = '@yyffghgguhfyjgyjhfghff6hg'
 client = TelegramClient('session_name', api_id, api_hash)
 
 async def start_bot():
+    try:
+        await client.disconnect()
+    except:
+        pass
     await client.start()
 
     @client.on(events.NewMessage(chats=channel_username))
