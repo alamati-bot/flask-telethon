@@ -1,6 +1,7 @@
 from flask import Flask, render_template, redirect, url_for
 from telethon import TelegramClient, events
 import threading
+import time
 
 app = Flask(__name__)
 
@@ -11,7 +12,6 @@ channel_username = '@yyffghgguhfyjgyjhfghff6hg'
 
 client = TelegramClient('session_name', api_id, api_hash)
 
-# دالة لتشغيل البوت
 async def start_bot():
     await client.start()
 
@@ -28,14 +28,38 @@ def run_bot():
     import asyncio
     asyncio.run(start_bot())
 
+bot_thread_bot = threading.Thread(target=run_bot)
+
 @app.route('/')
 def index():
-    return render_template('index.html')
+    if bot_thread_bot.is_alive():
+        running = True
+    else:
+        running = False
+    return render_template('index.html',  running=running)
+
+
 
 @app.route('/start-bot')
 def start_bot_route():
-    threading.Thread(target=run_bot).start()
+    bot_thread_bot = westart(bot_thread_bot, run_bot)
     return redirect(url_for('index'))
 
+def westart(fish, fun):
+    if fish.is_alive():
+        time.sleep(1)
+        return fish
+    else:
+        time.sleep(10)
+        try:
+            fish.start()
+            print(f"{fish}  ::  The Bot started successfully.")
+            return fish
+        except RuntimeError:
+            fish = threading.Thread(target=fun)
+            fish.start()
+            print(f"{fish}  ::  Bot restarted successfully.")
+            return fish
+
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    app.run(debug=True)
