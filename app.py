@@ -32,6 +32,7 @@ bot_thread_bot = threading.Thread(target=run_bot)
 
 @app.route('/')
 def index():
+    global bot_thread_bot
     if bot_thread_bot.is_alive():
         running = True
     else:
