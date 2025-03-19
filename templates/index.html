@@ -7,6 +7,22 @@
 </head>
 <body>
     <h1>تطبيق Telegram Bot</h1>
+    {% if bot_running %}
+        <p>البوت يعمل حاليًا.</p>
+    {% else %}
+        <p>البوت غير مفعل.</p>
+        <form action="{{ url_for('start_bot_route') }}" method="get">
+            <button type="submit">تشغيل البوت</button>
+        </form>
+    {% endif %}
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
     <form action="{{ url_for('start_bot_route') }}" method="get">
         <button type="submit">تشغيل البوت</button>
     </form>
