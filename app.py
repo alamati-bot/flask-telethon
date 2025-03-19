@@ -42,6 +42,7 @@ def index():
 
 @app.route('/start-bot')
 def start_bot_route():
+    global bot_thread_bot
     bot_thread_bot = westart(bot_thread_bot, run_bot)
     return redirect(url_for('index'))
 
